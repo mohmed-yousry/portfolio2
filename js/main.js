@@ -60,9 +60,36 @@ if(document.querySelector(".mySwiperTeam") != null) {
             spaceBetween: 50,
           },
         },
-      
       });
+    }
 
+if(document.querySelector(".swiper-partners") != null) {
+    let mySwiperTeam = new Swiper(".swiper-partners", {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+      
+        breakpoints: {
+            300: {
+            slidesPerView: 2,
+            spaceBetween: 0,
+          },
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+        },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+        },
+      });
     }
 
     if(document.querySelector(".service-swiper")) {
@@ -140,7 +167,63 @@ function getcounttry () {
       }
     }
     closeMenuMobile.addEventListener("click" , closeMenuMobileFun )
-    overlayMobile.addEventListener("click" , closeMenuMobileFun )
+    overlayMobile.addEventListener("click" , closeMenuMobileFun ) ; 
+    const massisgeIcons = document.querySelector(".all-icons") ; 
+    const iconsHidd = document.querySelector(".icons-hidd") ; 
+    massisgeIcons.addEventListener("click" , () => {
+      if(iconsHidd.clientHeight <1) {
+        iconsHidd.style.height = `${iconsHidd.scrollHeight}px` ; 
+      } else {
+        iconsHidd.style.height = `0px` ; 
+      }
+    }
+    
+    )
+    // validation
+    const regEmail =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const phoneNumberInput = document.querySelector(".phone-number") ; 
+    const EmailInput = document.querySelector(`input[type ="email"]`)
+    const form = document.querySelector("form") ; 
+    function validEmail (input) {
+      input.addEventListener("input" , () => {
+        if(!input.value.match(regEmail)) {
+          input.classList.add("not-valid")
+        } else {
+          input.classList.remove("not-valid")
+        }
+      })
+    }
+    function validMobile (input) {
+      input.addEventListener("input" , () => {
+        if(input.value.length != 11) {
+          input.classList.add("not-valid")
+        } else {
+          input.classList.remove("not-valid")
+        }
+      })
+    }
+    if(phoneNumberInput != null) {
+      validMobile(phoneNumberInput)
+    }
+    if(EmailInput != null) {
+      validEmail(EmailInput)
+    }
+    if(form != null) {
+      form.addEventListener("submit" , (ev) => {
+        const allInputs = Array.from(ev.target.querySelectorAll("input")) ; 
+        allInputs.forEach(e=> {
+          if(e.classList.contains("not-valid") || e.value.length == 0) {
+            ev.preventDefault()
+          } 
+        })
+      })
+
+    }
+
+    // form.children
+// validation
+
 // handle nav 
 // genril
 // index page 
@@ -299,3 +382,13 @@ if(selectFilterProdects != null) {
 filterCatgory(allBtnFilterProdects , allCardsFilterProdects ) ; 
 
 // prodects
+// bloger
+let allCards = Array.from(document.querySelectorAll(".bloger .right .card")) ;
+if(allCards.length > 0) {
+  allCards.forEach(e=> {
+    e.addEventListener("click"  , (tr) => {
+      window.location.href = e.getAttribute("href") ;
+    })
+  })
+}
+// bloger
